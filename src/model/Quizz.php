@@ -9,6 +9,7 @@ class Quizz
     public function __construct(string $title = 'No title chosen')
     {
         $this->_title = $title;
+        $this->_questions = new QuestionCollection();
     }
 
     public function getTitle():string
