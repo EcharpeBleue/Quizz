@@ -6,10 +6,10 @@ Class Reponse
     private string $_text;
     private bool $_isValid;
 
-    public function __construct(string $text, bool $isValid)
+    public function __construct(string $text, bool $pIsValid)
     {
         $this->_text = $text;
-        $this->_isValid = $isValid;
+        $this->_isValid = $pIsValid;
     }
 
     public function getText():string

@@ -25,4 +25,19 @@ class Quizz
     {
         $this->_questions[]=$question;
     }
+    public static function create($pJsonObject): Quizz
+    {
+        $quizz = new Quizz($pJsonObject->title);
+        foreach ($pJsonObject->questions as $questionJson) {
+            $question = new Question($questionJson->text);
+             foreach($questionJson->reponses as $reponseJson)
+             {
+                $reponse = new Reponse($reponseJson->text, $reponseJson->isValid);
+                $question->addReponse($reponse);
+             }
+            $quizz->addQuestion($question);
+        }
+        return $quizz;
+        }
+    
 }
