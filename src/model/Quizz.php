@@ -30,7 +30,7 @@ class Quizz
         $quizz = new Quizz($pJsonObject->title);
         foreach ($pJsonObject->questions as $questionJson) {
             $question = new Question($questionJson->text);
-             foreach($questionJson->reponses as $reponseJson)
+             foreach($questionJson->responses as $reponseJson)
              {
                 $reponse = new Reponse($reponseJson->text, $reponseJson->isValid);
                 $question->addReponse($reponse);

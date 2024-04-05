@@ -10,7 +10,7 @@
         ]
       },
       {
-        "text": "Quelle fonction est utilisée pour insérer un élément à la fin d'un tableau en PHP ?",
+        "text": "Quelle fonction est utilisée pour insérer un élément à la fin d&quotun tableau en PHP ?",
         "responses": [
           {"text": "array_push()", "isValid": true},
           {"text": "array_pop()", "isValid": false},

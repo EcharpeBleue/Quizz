@@ -36,7 +36,7 @@ class QuizzTest extends TestCase
               ]
             },
             {
-              "text": "Quelle fonction est utilisée pour insérer un élément à la fin d\'un tableau en PHP ?",
+              "text": "Quelle fonction est utilisée pour insérer un élément à la fin d&quotun tableau en PHP ?",
               "responses": [
                 {"text": "array_push()", "isValid": true},
                 {"text": "array_pop()", "isValid": false},
@@ -49,6 +49,6 @@ class QuizzTest extends TestCase
      
     $this->assertSame("Quiz PHP Basique", $quizz->getTitle());
     $this->assertSame("Que signifie PHP ?", $quizz->getQuestions()[0]->getText());
-    $this->assertSame("Quelle fonction est utilisée pour insérer un élément à la fin d'un tableau en PHP ?",$quizz->getQuestions()[1]->getText(),'yolo trop couul');
+    $this->assertSame("Quelle fonction est utilisée pour insérer un élément à la fin d&quotun tableau en PHP ?",$quizz->getQuestions()[1]->getText(),'yolo trop couul');
         }
 }
