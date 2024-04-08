@@ -1,7 +1,9 @@
 <?php
 namespace app\quizz\model;
 
-class QuestionCollection implements \ArrayAccess, \Countable
+use ArrayObject;
+
+class QuestionCollection extends ArrayObject implements \ArrayAccess, \Countable
 {
     private $_values = [];
     private int $_position = 0;
@@ -26,11 +28,7 @@ class QuestionCollection implements \ArrayAccess, \Countable
             throw new \InvalidArgumentException("Must be a question");
         }
 
-        if (empty($offset)) {
-            $this->_values[] = $value;
-        } else {
-            $this->_values[$offset] = $value;
-        }
+        parent::offsetSet($offset, $value);
     }
 
     public function offsetUnset($offset): void
@@ -64,5 +62,16 @@ class QuestionCollection implements \ArrayAccess, \Countable
     public function valid():bool
     {
         return isset($this->_values[$this->_position]);
+    }
+    public static function getQuestions(int $idQuizz):QuestionCollection
+    {
+        $liste = new QuestionCollection();
+        $statement = Database::getInstance()->getConnexion()->prepare('SELECT * FROM QUESTION where numQuizzId=:num;');
+        $statement->execute(['num'=>$idQuizz]);
+        while($row = $statement->fetch())
+        {
+            $liste[]=new Question(text:$row['texte'],id:$row['id']);
+        }
+        return $liste;
     }
 }

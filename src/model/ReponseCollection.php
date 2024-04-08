@@ -1,7 +1,9 @@
 <?php
 namespace app\quizz\model;
 
-class ReponseCollection implements \ArrayAccess, \Countable
+use ArrayObject;
+
+class ReponseCollection extends ArrayObject implements \ArrayAccess, \Countable
 {
     private $_values = [];
     private int $_position = 0;
@@ -26,11 +28,12 @@ class ReponseCollection implements \ArrayAccess, \Countable
             throw new \InvalidArgumentException("Must be a  response");
         }
 
-        if (empty($offset)) {
-            $this->_values[] = $value;
-        } else {
-            $this->_values[$offset] = $value;
-        }
+        // if (empty($offset)) {
+        //     $this->_values[] = $value;
+        // } else {
+        //     $this->_values[$offset] = $value;
+        // }
+        parent::offsetSet($offset, $value);
     }
 
     public function offsetUnset($offset): void
@@ -64,5 +67,16 @@ class ReponseCollection implements \ArrayAccess, \Countable
     public function valid():bool
     {
         return isset($this->_values[$this->_position]);
+    }
+    public static function getReponses(int $idQuestions):ReponseCollection
+    {
+        $liste = new ReponseCollection();
+        $statement = Database::getInstance()->getConnexion()->prepare('SELECT * FROM QUESTION where numQuestionId=:num;');
+        $statement->execute(['num'=>$idQuestions]);
+        while($row = $statement->fetch())
+        {
+            $liste[]=new Reponse(text:$row['texte'],id:$row['id'],isValid:$row['isValid']?true:false);
+        }
+        return $liste;
     }
 }
